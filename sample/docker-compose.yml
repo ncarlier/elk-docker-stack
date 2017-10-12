@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  ########################################
+  # NGINX
+  ########################################
+  nginx:
+    image: "nginx:latest"
+    restart: always
+    ports:
+      - "${PORT:-80}:80"
+    logging:
+      driver: syslog
+      options:
+        tag: nginx
+        syslog-address: "tcp://172.17.0.1:5514"
+
