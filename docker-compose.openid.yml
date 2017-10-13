@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  ########################################
+  # OpenID Connect Proxy
+  ########################################
+  oidc_proxy:
+    build: ./dockerfiles/keycloak-proxy
+    image: "ncarlier/keycloak-proxy:latest"
+    restart: always
+    environment:
+      - OIDC_DISCOVERY_URL=${OIDC_DISCOVERY_URL}
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      - OIDC_ENCRYPTION_KEY=${OIDC_ENCRYPTION_KEY}
+      - OIDC_REDIRECTION_URL=http://localhost:3000/
+      - OIDC_UPSTREAM_URL=http://kibana:5601/
+    ports:
+      - "${OIDC_PROXY_PORT:-3000}:3000"
+
