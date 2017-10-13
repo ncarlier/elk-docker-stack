@@ -21,6 +21,9 @@ services:
     env_file: config/logstash.env
     ports:
       - "${RSYSLOG_PORT:-5514}:5514"
+      - "${SENDLOG_PORT:-9000}:9000"
+    depends_on:
+      - elasticsearch
 
   ########################################
   # Kibana: The log dashboard
@@ -30,10 +33,10 @@ services:
     image: "ncarlier/kibana-elk:latest"
     restart: always
     env_file: config/kibana.env
-    depends_on:
-      - elasticsearch
     ports:
       - "${KIBANA_PORT:-5601}:5601"
+    depends_on:
+      - elasticsearch
 
 volumes:
   elastic-data:
