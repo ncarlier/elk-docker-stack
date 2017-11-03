@@ -7,8 +7,8 @@ COMPOSE_FILES?=-f docker-compose.yml
 root_dir:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 makefiles:=$(root_dir)/makefiles
 include $(makefiles)/help.Makefile
-include $(makefiles)/docker-cleanup.Makefile
-include $(makefiles)/compose.Makefile
+include $(makefiles)/docker/cleanup.Makefile
+include $(makefiles)/docker/compose.Makefile
 
 # Start HTTP proxy
 start-proxy:
@@ -34,7 +34,7 @@ undeploy: compose-down stop-proxy
 .PHONY: undeploy
 
 ## Get deployed service(s) status
-status: compose-status
+status: compose-ps
 .PHONY: status
 
 ## Get deployed service(s) logs
